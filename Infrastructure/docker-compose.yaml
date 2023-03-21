@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  ingredientsapi:
+    container_name: ingredients_api
+    ports: 
+      - 5000:80
+    env_file:
+      - env/ingredients_api.env
+    build:
+      context: ../src/Ingredients/Ingredients.API
+    networks:
+      - ingredientsservice
+    depends_on:
+      - ingredientsdb
+  ingredientsdb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: ingredients_db
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+    env_file:
+      - env/ingredients_db.env
+    networks:
+      - ingredientsservice
+networks: 
+  ingredientsservice:
+    name: ingredients_service
+  
+    
