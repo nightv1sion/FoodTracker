@@ -4,9 +4,9 @@ namespace src.Ingredients.Ingredients.API.Commands.DTOs
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public decimal Calories { get; set; }
-        public decimal Proteins { get; set; }
-        public decimal Carbs { get; set; }
-        public decimal Fats { get; set; }
+        public double Calories { get; set; }
+        public double Proteins { get; set; }
+        public double Carbs { get; set; }
+        public double Fats { get; set; }
     }
 }

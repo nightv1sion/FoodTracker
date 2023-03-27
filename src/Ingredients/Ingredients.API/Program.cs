@@ -12,7 +12,7 @@ builder.Services.ConfigureDbContext(builder.Configuration);
 builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
 builder.Services.AddMediatR(
     config => config.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
-// builder.Services.MigrateDatabase();
+builder.Services.MigrateDatabase();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -9,7 +9,7 @@ namespace src.Ingredients.Ingredients.API.Repository
 
         public void CreateIngredient(Ingredient ingredient) => Create(ingredient);
 
-        public void DeleteIngredient(Ingredient ingredient) => DeleteIngredient(ingredient);
+        public void DeleteIngredient(Ingredient ingredient) => Delete(ingredient);
 
         public async Task<Ingredient> GetIngredientAsync(Guid ingredientId, bool trackChanges)
             => await FindByCondition(x => x.Id == ingredientId, trackChanges).FirstOrDefaultAsync();

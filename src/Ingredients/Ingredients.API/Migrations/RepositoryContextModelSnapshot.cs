@@ -29,24 +29,24 @@ namespace Ingredients.API.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Calories")
-                        .HasColumnType("decimal(10, 8)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<decimal>("Carbs")
-                        .HasColumnType("decimal(10, 8)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Fats")
-                        .HasColumnType("decimal(10, 8)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Proteins")
-                        .HasColumnType("decimal(10, 8)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.HasKey("Id");
 

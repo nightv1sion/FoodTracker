@@ -1,6 +1,13 @@
 version: "3.8"
 
 services:
+  apigateway:
+    container_name: api_gateway
+    ports: 
+      - 5001:80
+    build:
+      context: ../src/ApiGateways/APIGateway
+
   ingredientsapi:
     container_name: ingredients_api
     ports: 
@@ -13,6 +20,7 @@ services:
       - ingredientsservice
     depends_on:
       - ingredientsdb
+      - apigateway
   ingredientsdb:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: ingredients_db

@@ -25,7 +25,7 @@ namespace src.Ingredients.Ingredients.API.Commands.Ingredients.UpdateIngredient
             var updatedIngredient = _mapper.Map<Ingredient>(request.UpdateIngredientDTO);
             _ingredientRepository.UpdateIngredient(updatedIngredient);
             await _ingredientRepository.SaveChangesAsync();
-            return ingredient;
+            return updatedIngredient;
         }
     }
 }

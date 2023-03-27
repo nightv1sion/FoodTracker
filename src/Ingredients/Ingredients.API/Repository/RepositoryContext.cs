@@ -11,19 +11,19 @@ namespace src.Ingredients.Ingredients.API.Repository
         {
             modelBuilder.Entity<Ingredient>()
                 .Property(x => x.Calories)
-                .HasColumnType("decimal(10, 8)");
+                .HasColumnType("decimal(18, 2)");
 
             modelBuilder.Entity<Ingredient>()
                 .Property(x => x.Proteins)
-                .HasColumnType("decimal(10, 8)");
+                .HasColumnType("decimal(18, 2)");
 
             modelBuilder.Entity<Ingredient>()
                 .Property(x => x.Carbs)
-                .HasColumnType("decimal(10, 8)");
+                .HasColumnType("decimal(18, 2)");
 
             modelBuilder.Entity<Ingredient>()
                 .Property(x => x.Fats)
-                .HasColumnType("decimal(10, 8)");
+                .HasColumnType("decimal(18, 2)");
         }
     }
 }

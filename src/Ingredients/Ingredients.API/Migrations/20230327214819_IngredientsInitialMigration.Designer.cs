@@ -12,8 +12,8 @@ using src.Ingredients.Ingredients.API.Repository;
 namespace Ingredients.API.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20230321192728_InitialIngredientsMigration")]
-    partial class InitialIngredientsMigration
+    [Migration("20230327214819_IngredientsInitialMigration")]
+    partial class IngredientsInitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,24 +32,24 @@ namespace Ingredients.API.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Calories")
-                        .HasColumnType("decimal(10, 8)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<decimal>("Carbs")
-                        .HasColumnType("decimal(10, 8)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Fats")
-                        .HasColumnType("decimal(10, 8)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Proteins")
-                        .HasColumnType("decimal(10, 8)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.HasKey("Id");
 
