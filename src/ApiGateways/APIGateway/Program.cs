@@ -1,3 +1,7 @@
+using src.ApiGateways.APIGateway.Extensions;
+using src.ApiGateways.APIGateway.Services;
+using src.ApiGateways.APIGateway.Services.Contracts;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
+builder.Services.ConfigureHttpRequestReader();
+builder.Services.ConfigureStringContentCreator();
+builder.Services.ConfigureProxyClient();
 
 var app = builder.Build();
 
