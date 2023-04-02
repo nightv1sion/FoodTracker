@@ -4,6 +4,7 @@ using src.Ingredients.Ingredients.API.Commands.DTOs;
 using src.Ingredients.Ingredients.API.Commands.Ingredients.CreateIngredient;
 using src.Ingredients.Ingredients.API.Commands.Ingredients.DeleteIngredient;
 using src.Ingredients.Ingredients.API.Commands.Ingredients.UpdateIngredient;
+using src.Ingredients.Ingredients.API.Entities;
 using src.Ingredients.Ingredients.API.Queries.GetIngredient;
 using src.Ingredients.Ingredients.API.Queries.GetIngredients;
 
@@ -30,6 +31,10 @@ namespace src.Ingredients.Ingredients.API.Controllers
         public async Task<ActionResult<Ingredient>> GetIngredient(Guid id)
         {
             var ingredient = await _mediator.Send(new GetIngredientQuery(id));
+            if (ingredient == null)
+            {
+                return NotFound("Ingredient is not found");
+            }
             return Ok(ingredient);
         }
         [HttpPost]

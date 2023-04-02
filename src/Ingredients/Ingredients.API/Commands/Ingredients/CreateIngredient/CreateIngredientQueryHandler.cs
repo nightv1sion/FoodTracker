@@ -1,5 +1,6 @@
 using AutoMapper;
 using MediatR;
+using src.Ingredients.Ingredients.API.Entities;
 using src.Ingredients.Ingredients.API.Repository.Contracts;
 
 namespace src.Ingredients.Ingredients.API.Commands.Ingredients.CreateIngredient

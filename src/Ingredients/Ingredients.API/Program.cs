@@ -2,6 +2,7 @@ using System.Reflection;
 using MediatR;
 using src.Ingredients.Ingredients.API.Extensions;
 using src.Ingredients.Ingredients.API.Helper;
+using src.Ingredients.Ingredients.API.Middlewares;
 using src.Ingredients.Ingredients.API.Repository;
 using src.Ingredients.Ingredients.API.Repository.Contracts;
 
@@ -26,7 +27,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseAuthorization();
-
+app.UseMiddleware<MediatorErrorHandlingMiddleware>();
 app.MapControllers();
 
 app.Run();

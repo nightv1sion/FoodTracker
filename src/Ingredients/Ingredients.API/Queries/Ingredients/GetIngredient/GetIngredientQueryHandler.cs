@@ -1,4 +1,6 @@
 using MediatR;
+using src.Ingredients.Ingredients.API.Entities;
+using src.Ingredients.Ingredients.API.Exceptions;
 using src.Ingredients.Ingredients.API.Repository.Contracts;
 
 namespace src.Ingredients.Ingredients.API.Queries.GetIngredient
@@ -15,7 +17,10 @@ namespace src.Ingredients.Ingredients.API.Queries.GetIngredient
             GetIngredientQuery request, CancellationToken cancellationToken)
         {
             var ingredient = await _ingredientRepository.GetIngredientAsync(request.Id, false);
-            await _ingredientRepository.SaveChangesAsync();
+            if (ingredient == null)
+            {
+                throw new IngredientNotFoundException(request.Id);
+            }
             return ingredient;
         }
     }

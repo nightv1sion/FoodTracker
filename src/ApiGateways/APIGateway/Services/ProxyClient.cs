@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using src.ApiGateways.APIGateway.Services.Contracts;
 
 namespace src.ApiGateways.APIGateway.Services
@@ -14,25 +15,51 @@ namespace src.ApiGateways.APIGateway.Services
             _contentCreator = contentCreator;
             _httpClient = clientFactory.CreateClient();
         }
-        public async Task<string> DeleteToAsync(string url)
+        public async Task<ActionResult> DeleteToAsync(string url)
         {
-            var result = await _httpClient.DeleteAsync(url);
-            return await result.Content.ReadAsStringAsync();
+            var response = await _httpClient.DeleteAsync(url);
+            return await GetActionResult(response);
         }
-        public async Task<string> PutToAsync(string url, string body)
+        public async Task<ActionResult> PutToAsync(string url, string body)
         {
             var content = _contentCreator.CreateContent(body);
-            var result = await _httpClient.PutAsync(url, content);
-            return await result.Content.ReadAsStringAsync();
+            var response = await _httpClient.PutAsync(url, content);
+            return await GetActionResult(response);
         }
-        public async Task<string> PostToAsync(string url, string body)
+        public async Task<ActionResult> PostToAsync(string url, string body)
         {
             var content = _contentCreator.CreateContent(body);
-            var result = await _httpClient.PostAsync(url, content);
-            return await result.Content.ReadAsStringAsync();
+            var response = await _httpClient.PostAsync(url, content);
+            return await GetActionResult(response);
         }
 
-        public async Task<string> GetToAsync(string url)
-            => await _httpClient.GetStringAsync(url);
+        public async Task<ActionResult> GetToAsync(string url)
+        {
+            var response = await _httpClient.GetAsync(url);
+            return await GetActionResult(response);
+        }
+
+        private async Task<ActionResult> GetActionResult(HttpResponseMessage response)
+        {
+            ActionResult result = null;
+            var content = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(response.StatusCode);
+            switch (response.StatusCode)
+            {
+                case System.Net.HttpStatusCode.OK:
+                    result = new OkObjectResult(content); break;
+                case System.Net.HttpStatusCode.NoContent:
+                    result = new OkResult(); break;
+                case System.Net.HttpStatusCode.NotFound:
+                    result = new NotFoundObjectResult(content); break;
+                case System.Net.HttpStatusCode.Unauthorized:
+                    result = new UnauthorizedObjectResult(content); break;
+                case System.Net.HttpStatusCode.UnsupportedMediaType:
+                    result = new UnsupportedMediaTypeResult(); break;
+                default:
+                    result = new BadRequestObjectResult(content); break;
+            }
+            return result;
+        }
     }
 }
