@@ -1,5 +1,7 @@
 using AutoMapper;
 using MediatR;
+using src.Ingredients.Ingredients.API.Entities;
+using src.Ingredients.Ingredients.API.Exceptions;
 using src.Ingredients.Ingredients.API.Repository.Contracts;
 
 namespace src.Ingredients.Ingredients.API.Commands.Ingredients.UpdateIngredient
@@ -20,7 +22,7 @@ namespace src.Ingredients.Ingredients.API.Commands.Ingredients.UpdateIngredient
             var ingredient = await _ingredientRepository.GetIngredientAsync(request.UpdateIngredientDTO.Id, false);
             if (ingredient == null)
             {
-                return null;
+                throw new IngredientNotFoundException(request.UpdateIngredientDTO.Id);
             }
             var updatedIngredient = _mapper.Map<Ingredient>(request.UpdateIngredientDTO);
             _ingredientRepository.UpdateIngredient(updatedIngredient);

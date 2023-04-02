@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using src.Ingredients.Ingredients.API.Entities;
 
 namespace src.Ingredients.Ingredients.API.Repository
 {

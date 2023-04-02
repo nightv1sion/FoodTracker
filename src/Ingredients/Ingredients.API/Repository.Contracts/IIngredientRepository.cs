@@ -1,3 +1,5 @@
+using src.Ingredients.Ingredients.API.Entities;
+
 namespace src.Ingredients.Ingredients.API.Repository.Contracts
 {
     public interface IIngredientRepository

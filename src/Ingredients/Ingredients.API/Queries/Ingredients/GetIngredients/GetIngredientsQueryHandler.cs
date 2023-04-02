@@ -1,4 +1,5 @@
 using MediatR;
+using src.Ingredients.Ingredients.API.Entities;
 using src.Ingredients.Ingredients.API.Repository.Contracts;
 
 

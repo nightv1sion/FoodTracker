@@ -28,26 +28,31 @@ public class IngredientsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult> GetIngredients()
     {
-        return Content(await _proxyClient.GetToAsync(_apiPath));
+        return await _proxyClient.GetToAsync(_apiPath);
+    }
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult> GetIndredientById(Guid id)
+    {
+        return await _proxyClient.GetToAsync($"{_apiPath}/{id}");
     }
 
     [HttpPost]
     public async Task<ActionResult> CreateIngredient()
     {
         var body = await _requestReader.ReadRequestBodyAsync(Request);
-        return Content(await _proxyClient.PostToAsync(_apiPath, body));
+        return await _proxyClient.PostToAsync(_apiPath, body);
     }
 
     [HttpPut]
     public async Task<ActionResult> UpdateIngredient()
     {
         var body = await _requestReader.ReadRequestBodyAsync(Request);
-        return Content(await _proxyClient.PutToAsync(_apiPath, body));
+        return await _proxyClient.PutToAsync(_apiPath, body);
     }
 
     [HttpDelete("{id:guid}")]
     public async Task<ActionResult> DeleteIngredient(Guid id)
     {
-        return Content(await _proxyClient.DeleteToAsync(_apiPath + id.ToString()));
+        return await _proxyClient.DeleteToAsync($"{_apiPath}/{id}");
     }
 }

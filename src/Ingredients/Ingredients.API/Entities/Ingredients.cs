@@ -1,4 +1,4 @@
-namespace src.Ingredients.Ingredients.API
+namespace src.Ingredients.Ingredients.API.Entities
 {
     public class Ingredient
     {

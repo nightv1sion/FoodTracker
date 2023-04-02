@@ -1,4 +1,5 @@
 using MediatR;
+using src.Ingredients.Ingredients.API.Exceptions;
 using src.Ingredients.Ingredients.API.Repository.Contracts;
 
 namespace src.Ingredients.Ingredients.API.Commands.Ingredients.DeleteIngredient
@@ -15,6 +16,11 @@ namespace src.Ingredients.Ingredients.API.Commands.Ingredients.DeleteIngredient
             DeleteIngredientQuery request, CancellationToken cancellationToken)
         {
             var ingredient = await _ingredientRepository.GetIngredientAsync(request.Id, false);
+
+            if (ingredient == null)
+            {
+                throw new IngredientNotFoundException(request.Id);
+            }
             _ingredientRepository.DeleteIngredient(ingredient);
             await _ingredientRepository.SaveChangesAsync();
         }
