@@ -50,6 +50,8 @@ namespace src.ApiGateways.APIGateway.Services
                     result = new OkObjectResult(content); break;
                 case System.Net.HttpStatusCode.NoContent:
                     result = new OkResult(); break;
+                case System.Net.HttpStatusCode.Created:
+                    result = new OkObjectResult(content); break;
                 case System.Net.HttpStatusCode.NotFound:
                     result = new NotFoundObjectResult(content); break;
                 case System.Net.HttpStatusCode.Unauthorized:
