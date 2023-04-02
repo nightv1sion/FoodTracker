@@ -10,38 +10,38 @@ services:
     networks:
       - gateway-net
     depends_on:
-      - ingredientsapi
-      - ingredientsdb
+      - mealsapi
+      - mealsdb
 
-  ingredientsapi:
-    container_name: ingredients_api
+  mealsapi:
+    container_name: meals_api
     ports: 
       - 5000:80
     env_file:
-      - env/ingredients_api.env
+      - env/meals_api.env
     build:
-      context: ../src/Ingredients/Ingredients.API
+      context: ../src/Meals/Meals.API
     networks:
-      - ingredientsservice
+      - mealsservice
       - gateway-net
     depends_on:
-      - ingredientsdb
+      - mealsdb
     
-  ingredientsdb:
+  mealsdb:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: ingredients_db
+    container_name: meals_db
     ports:
       - 1433:1433
     environment:
       - ACCEPT_EULA=Y
     env_file:
-      - env/ingredients_db.env
+      - env/meals_db.env
     networks:
-      - ingredientsservice
+      - mealsservice
       
 networks: 
-  ingredientsservice:
-    name: ingredients_service
+  mealsservice:
+    name: meals_service
   gateway-net:
     name: gateway_network
   

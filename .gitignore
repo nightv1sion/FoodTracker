@@ -1,5 +1,5 @@
-/src/ingredients/ingredients.api/bin
-/src/ingredients/ingredients.api/obj
+/src/meals/meals.api/bin
+/src/meals/meals.api/obj
 /src/apigateways/apigateway/bin
 /src/apigateways/apigateway/obj
 
