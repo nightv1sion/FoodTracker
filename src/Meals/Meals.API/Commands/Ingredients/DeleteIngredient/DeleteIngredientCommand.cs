@@ -2,9 +2,9 @@ using MediatR;
 
 namespace src.Meals.Meals.API.Commands.Ingredients.DeleteIngredient
 {
-    public class DeleteIngredientQuery : IRequest
+    public class DeleteIngredientCommand : IRequest
     {
-        public DeleteIngredientQuery(Guid id)
+        public DeleteIngredientCommand(Guid id)
         {
             Id = id;
         }

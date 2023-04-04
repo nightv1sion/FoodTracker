@@ -1,9 +1,9 @@
 using MediatR;
-using src.Meals.Meals.API.Entities;
+using src.Meals.Meals.API.Queries.Ingredients.DTOs;
 
 namespace src.Meals.Meals.API.Queries.Ingredients.GetIngredient
 {
-    public class GetIngredientQuery : IRequest<Ingredient>
+    public class GetIngredientQuery : IRequest<IngredientDTO>
     {
         public GetIngredientQuery(Guid id)
         {

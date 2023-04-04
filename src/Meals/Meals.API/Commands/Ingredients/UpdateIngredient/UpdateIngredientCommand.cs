@@ -1,12 +1,11 @@
 using MediatR;
-using src.Meals.Meals.API.Commands.DTOs;
-using src.Meals.Meals.API.Entities;
+using src.Meals.Meals.API.Commands.Ingredients.DTOs;
 
 namespace src.Meals.Meals.API.Commands.Ingredients.UpdateIngredient
 {
-    public class UpdateIngredientQuery : IRequest<Ingredient>
+    public class UpdateIngredientCommand : IRequest<IngredientDTO>
     {
-        public UpdateIngredientQuery(UpdateIngredientDTO updateIngredientDTO)
+        public UpdateIngredientCommand(UpdateIngredientDTO updateIngredientDTO)
         {
             UpdateIngredientDTO = updateIngredientDTO;
         }

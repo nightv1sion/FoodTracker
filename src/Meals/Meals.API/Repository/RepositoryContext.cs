@@ -7,6 +7,7 @@ namespace src.Meals.Meals.API.Repository
     {
         public RepositoryContext(DbContextOptions<RepositoryContext> options) : base(options) { }
         public DbSet<Ingredient> Ingredients { get; set; }
+        public DbSet<Meal> Meals { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

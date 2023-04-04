@@ -1,12 +1,11 @@
 using MediatR;
-using src.Meals.Meals.API.Commands.DTOs;
-using src.Meals.Meals.API.Entities;
+using src.Meals.Meals.API.Commands.Ingredients.DTOs;
 
 namespace src.Meals.Meals.API.Commands.Ingredients.CreateIngredient
 {
-    public class CreateIngredientQuery : IRequest<Ingredient>
+    public class CreateIngredientCommand : IRequest<IngredientDTO>
     {
-        public CreateIngredientQuery(CreateIngredientDTO createIngredientDTO)
+        public CreateIngredientCommand(CreateIngredientDTO createIngredientDTO)
         {
             CreateIngredientDTO = createIngredientDTO;
         }

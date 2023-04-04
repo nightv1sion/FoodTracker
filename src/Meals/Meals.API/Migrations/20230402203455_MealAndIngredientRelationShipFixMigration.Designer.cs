@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using src.Meals.Meals.API.Repository;
 
@@ -11,9 +12,11 @@ using src.Meals.Meals.API.Repository;
 namespace Ingredients.API.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20230402203455_MealAndIngredientRelationShipFixMigration")]
+    partial class MealAndIngredientRelationShipFixMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,7 +44,7 @@ namespace Ingredients.API.Migrations
                     b.Property<decimal>("Fats")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<Guid?>("MealId")
+                    b.Property<Guid>("MealId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -81,7 +84,9 @@ namespace Ingredients.API.Migrations
                 {
                     b.HasOne("src.Meals.Meals.API.Entities.Meal", "Meal")
                         .WithMany("Ingredients")
-                        .HasForeignKey("MealId");
+                        .HasForeignKey("MealId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Meal");
                 });

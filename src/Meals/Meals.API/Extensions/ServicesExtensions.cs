@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using src.Meals.Meals.API.Helper;
 using src.Meals.Meals.API.Repository;
+using src.Meals.Meals.API.Repository.Contracts;
 
 namespace src.Meals.Meals.API.Extensions
 {
@@ -24,6 +25,14 @@ namespace src.Meals.Meals.API.Extensions
                     context.Database.Migrate();
                 }
             }
+        }
+        public static void ConfigureIngredientRepository(this IServiceCollection services)
+        {
+            services.AddScoped<IIngredientRepository, IngredientRepository>();
+        }
+        public static void ConfigureMealRepository(this IServiceCollection services)
+        {
+            services.AddScoped<IMealRepository, MealRepository>();
         }
     }
 }

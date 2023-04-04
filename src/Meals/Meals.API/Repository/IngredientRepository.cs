@@ -15,8 +15,8 @@ namespace src.Meals.Meals.API.Repository
         public async Task<Ingredient> GetIngredientAsync(Guid ingredientId, bool trackChanges)
             => await FindByCondition(x => x.Id == ingredientId, trackChanges).FirstOrDefaultAsync();
 
-        public async Task<List<Ingredient>> GetIngredientsAsync(bool trackChanges)
-            => await FindAll(trackChanges).ToListAsync();
+        public IQueryable<Ingredient> GetIngredients(bool trackChanges)
+            => FindAll(trackChanges);
 
         public void UpdateIngredient(Ingredient ingredient) => Update(ingredient);
     }

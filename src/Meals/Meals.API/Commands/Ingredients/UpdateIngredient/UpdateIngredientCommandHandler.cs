@@ -1,23 +1,24 @@
 using AutoMapper;
 using MediatR;
+using src.Meals.Meals.API.Commands.Ingredients.DTOs;
 using src.Meals.Meals.API.Entities;
 using src.Meals.Meals.API.Exceptions;
 using src.Meals.Meals.API.Repository.Contracts;
 
 namespace src.Meals.Meals.API.Commands.Ingredients.UpdateIngredient
 {
-    public class UpdateIngredientQueryHandler : IRequestHandler<UpdateIngredientQuery, Ingredient>
+    public class UpdateIngredientCommandHandler : IRequestHandler<UpdateIngredientCommand, IngredientDTO>
     {
         private readonly IIngredientRepository _ingredientRepository;
         private readonly IMapper _mapper;
-        public UpdateIngredientQueryHandler(
+        public UpdateIngredientCommandHandler(
             IIngredientRepository ingredientRepository, IMapper mapper)
         {
             _ingredientRepository = ingredientRepository;
             _mapper = mapper;
         }
-        public async Task<Ingredient> Handle(
-            UpdateIngredientQuery request, CancellationToken cancellationToken)
+        public async Task<IngredientDTO> Handle(
+            UpdateIngredientCommand request, CancellationToken cancellationToken)
         {
             var ingredient = await _ingredientRepository.GetIngredientAsync(request.UpdateIngredientDTO.Id, false);
             if (ingredient == null)
@@ -27,7 +28,8 @@ namespace src.Meals.Meals.API.Commands.Ingredients.UpdateIngredient
             var updatedIngredient = _mapper.Map<Ingredient>(request.UpdateIngredientDTO);
             _ingredientRepository.UpdateIngredient(updatedIngredient);
             await _ingredientRepository.SaveChangesAsync();
-            return updatedIngredient;
+            var dto = _mapper.Map<IngredientDTO>(updatedIngredient);
+            return dto;
         }
     }
 }
