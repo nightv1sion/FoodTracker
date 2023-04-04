@@ -1,5 +1,5 @@
 using AutoMapper;
-using src.Meals.Meals.API.Commands.DTOs;
+using src.Meals.Meals.API.Commands.Ingredients.DTOs;
 using src.Meals.Meals.API.Entities;
 
 namespace src.Meals.Meals.API.Commands.Ingredients
@@ -10,6 +10,7 @@ namespace src.Meals.Meals.API.Commands.Ingredients
         {
             CreateMap<CreateIngredientDTO, Ingredient>();
             CreateMap<UpdateIngredientDTO, Ingredient>();
+            CreateMap<Ingredient, IngredientDTO>();
         }
     }
 }

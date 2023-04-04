@@ -8,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.ConfigureDbContext(builder.Configuration);
-builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
+builder.Services.ConfigureIngredientRepository();
+builder.Services.ConfigureMealRepository();
 builder.Services.AddMediatR(
     config => config.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 builder.Services.MigrateDatabase();

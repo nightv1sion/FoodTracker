@@ -1,4 +1,4 @@
-namespace src.Meals.Meals.API.Commands.DTOs
+namespace src.Meals.Meals.API.Commands.Ingredients.DTOs
 {
     public class CreateIngredientDTO
     {
@@ -8,5 +8,6 @@ namespace src.Meals.Meals.API.Commands.DTOs
         public double Proteins { get; set; }
         public double Carbs { get; set; }
         public double Fats { get; set; }
+        public Guid MealId { get; set; }
     }
 }

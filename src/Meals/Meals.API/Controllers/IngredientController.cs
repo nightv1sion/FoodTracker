@@ -1,8 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using src.Meals.Meals.API.Commands.DTOs;
 using src.Meals.Meals.API.Commands.Ingredients.CreateIngredient;
 using src.Meals.Meals.API.Commands.Ingredients.DeleteIngredient;
+using src.Meals.Meals.API.Commands.Ingredients.DTOs;
 using src.Meals.Meals.API.Commands.Ingredients.UpdateIngredient;
 using src.Meals.Meals.API.Entities;
 using src.Meals.Meals.API.Queries.Ingredients.GetIngredient;
@@ -40,13 +40,13 @@ namespace src.Meals.Meals.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Ingredient>> CreateIngredient(CreateIngredientDTO dto)
         {
-            var ingredient = await _mediator.Send(new CreateIngredientQuery(dto));
+            var ingredient = await _mediator.Send(new CreateIngredientCommand(dto));
             return CreatedAtRoute("GetIngredientById", new { Id = ingredient.Id }, ingredient);
         }
         [HttpPut]
         public async Task<ActionResult> UpdateIngredient(UpdateIngredientDTO dto)
         {
-            var ingredient = await _mediator.Send(new UpdateIngredientQuery(dto));
+            var ingredient = await _mediator.Send(new UpdateIngredientCommand(dto));
             if (ingredient == null)
                 return NotFound("Ingredient is not found");
             return Ok(ingredient);
@@ -54,7 +54,7 @@ namespace src.Meals.Meals.API.Controllers
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> DeleteIngredient(Guid id)
         {
-            await _mediator.Send(new DeleteIngredientQuery(id));
+            await _mediator.Send(new DeleteIngredientCommand(id));
             return Ok();
         }
     }

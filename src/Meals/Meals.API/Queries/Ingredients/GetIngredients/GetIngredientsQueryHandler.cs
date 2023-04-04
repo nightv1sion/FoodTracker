@@ -1,19 +1,29 @@
+using AutoMapper;
 using MediatR;
 using src.Meals.Meals.API.Entities;
+using src.Meals.Meals.API.Queries.Ingredients.DTOs;
 using src.Meals.Meals.API.Repository.Contracts;
 
 
 namespace src.Meals.Meals.API.Queries.Ingredients.GetIngredients
 {
-    public class GetIngredientsQueryHandler : IRequestHandler<GetIngredientsQuery, IEnumerable<Ingredient>>
+    public class GetIngredientsQueryHandler : IRequestHandler<GetIngredientsQuery, IEnumerable<IngredientDTO>>
     {
+        private readonly IMapper _mapper;
         private readonly IIngredientRepository _ingredientRepository;
-        public GetIngredientsQueryHandler(IIngredientRepository ingredientRepository)
+        public GetIngredientsQueryHandler(
+            IIngredientRepository ingredientRepository,
+            IMapper mapper)
         {
+            _mapper = mapper;
             _ingredientRepository = ingredientRepository;
         }
-        public async Task<IEnumerable<Ingredient>> Handle(
+        public async Task<IEnumerable<IngredientDTO>> Handle(
             GetIngredientsQuery request, CancellationToken cancellationToken)
-            => await _ingredientRepository.GetIngredientsAsync(true);
+        {
+            var ingredients = _ingredientRepository.GetIngredients(true);
+            var dtos = _mapper.Map<IEnumerable<IngredientDTO>>(ingredients);
+            return dtos;
+        }
     }
 }

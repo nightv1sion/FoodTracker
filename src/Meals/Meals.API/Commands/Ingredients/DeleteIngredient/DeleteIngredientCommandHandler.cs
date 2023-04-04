@@ -4,16 +4,16 @@ using src.Meals.Meals.API.Repository.Contracts;
 
 namespace src.Meals.Meals.API.Commands.Ingredients.DeleteIngredient
 {
-    public class DeleteIngredientQueryHandler : IRequestHandler<DeleteIngredientQuery>
+    public class DeleteIngredientCommandHandler : IRequestHandler<DeleteIngredientCommand>
     {
         private readonly IIngredientRepository _ingredientRepository;
 
-        public DeleteIngredientQueryHandler(IIngredientRepository ingredientRepository)
+        public DeleteIngredientCommandHandler(IIngredientRepository ingredientRepository)
         {
             _ingredientRepository = ingredientRepository;
         }
         public async Task Handle(
-            DeleteIngredientQuery request, CancellationToken cancellationToken)
+            DeleteIngredientCommand request, CancellationToken cancellationToken)
         {
             var ingredient = await _ingredientRepository.GetIngredientAsync(request.Id, false);
 

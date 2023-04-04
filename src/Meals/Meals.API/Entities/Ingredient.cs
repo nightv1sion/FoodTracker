@@ -9,6 +9,8 @@ namespace src.Meals.Meals.API.Entities
         public double Proteins { get; set; }
         public double Carbs { get; set; }
         public double Fats { get; set; }
+        public Guid? MealId { get; set; }
+        public Meal Meal { get; set; }
     }
 
 }
