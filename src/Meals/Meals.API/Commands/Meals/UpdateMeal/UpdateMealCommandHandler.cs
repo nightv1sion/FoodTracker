@@ -24,7 +24,7 @@ public class UpdateMealCommandHandler : IRequestHandler<UpdateMealCommand, MealD
     }
     public async Task<MealDTO> Handle(UpdateMealCommand request, CancellationToken cancellationToken)
     {
-        var meal = _mealRepository.GetMealAsync(request.UpdateMealDTO.Id, true);
+        var meal = await _mealRepository.GetMealAsync(request.UpdateMealDTO.Id, false);
         if (meal == null)
         {
             throw new MealNotFoundException(request.UpdateMealDTO.Id);
