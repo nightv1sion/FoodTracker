@@ -9,6 +9,6 @@ namespace src.Meals.Meals.API.Commands.Ingredients.DTOs
         public decimal Proteins { get; set; }
         public decimal Carbs { get; set; }
         public decimal Fats { get; set; }
-        public Guid MealId { get; set; }
+        public ICollection<Guid> MealsIds { get; set; }
     }
 }

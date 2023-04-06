@@ -7,6 +7,7 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<Ingredient, IngredientDTO>();
+        CreateMap<Ingredient, IngredientDTO>().ForMember(
+            dto => dto.MealsIds, entity => entity.MapFrom(x => x.Meals.Select(meal => meal.Id)));
     }
 }

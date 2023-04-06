@@ -10,7 +10,8 @@ namespace src.Meals.Meals.API.Commands.Ingredients
         {
             CreateMap<CreateIngredientDTO, Ingredient>();
             CreateMap<UpdateIngredientDTO, Ingredient>();
-            CreateMap<Ingredient, IngredientDTO>();
+            CreateMap<Ingredient, IngredientDTO>()
+                .ForMember(dto => dto.MealsIds, entity => entity.MapFrom(x => x.Meals.Select(meal => meal.Id)));
         }
     }
 }
