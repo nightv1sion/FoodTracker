@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using src.ApiGateways.APIGateway.Services.Contracts;
 
 namespace src.ApiGateways.APIGateway.Services
@@ -42,7 +43,9 @@ namespace src.ApiGateways.APIGateway.Services
         private async Task<ActionResult> GetActionResult(HttpResponseMessage response)
         {
             ActionResult result = null;
-            var content = await response.Content.ReadAsStringAsync();
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var content = JsonConvert.SerializeObject(
+                JsonConvert.DeserializeObject(responseContent), Formatting.Indented);
             Console.WriteLine(response.StatusCode);
             switch (response.StatusCode)
             {

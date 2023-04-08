@@ -9,11 +9,11 @@ using src.Meals.Meals.API.Repository;
 
 #nullable disable
 
-namespace Ingredients.API.Migrations
+namespace Meals.API.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20230402204222_MealAndIngredientRelationShipFixMaybeNullMigration")]
-    partial class MealAndIngredientRelationShipFixMaybeNullMigration
+    [Migration("20230406210744_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,21 @@ namespace Ingredients.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("IngredientMeal", b =>
+                {
+                    b.Property<Guid>("IngredientsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MealsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("IngredientsId", "MealsId");
+
+                    b.HasIndex("MealsId");
+
+                    b.ToTable("IngredientMeal");
+                });
 
             modelBuilder.Entity("src.Meals.Meals.API.Entities.Ingredient", b =>
                 {
@@ -44,9 +59,6 @@ namespace Ingredients.API.Migrations
                     b.Property<decimal>("Fats")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<Guid?>("MealId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -55,8 +67,6 @@ namespace Ingredients.API.Migrations
                         .HasColumnType("decimal(18, 2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MealId");
 
                     b.ToTable("Ingredients");
                 });
@@ -80,18 +90,19 @@ namespace Ingredients.API.Migrations
                     b.ToTable("Meals");
                 });
 
-            modelBuilder.Entity("src.Meals.Meals.API.Entities.Ingredient", b =>
+            modelBuilder.Entity("IngredientMeal", b =>
                 {
-                    b.HasOne("src.Meals.Meals.API.Entities.Meal", "Meal")
-                        .WithMany("Ingredients")
-                        .HasForeignKey("MealId");
+                    b.HasOne("src.Meals.Meals.API.Entities.Ingredient", null)
+                        .WithMany()
+                        .HasForeignKey("IngredientsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Meal");
-                });
-
-            modelBuilder.Entity("src.Meals.Meals.API.Entities.Meal", b =>
-                {
-                    b.Navigation("Ingredients");
+                    b.HasOne("src.Meals.Meals.API.Entities.Meal", null)
+                        .WithMany()
+                        .HasForeignKey("MealsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,6 @@
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using src.Meals.Meals.API.Exceptions;
 using src.Meals.Meals.API.Queries.Ingredients.DTOs;
 using src.Meals.Meals.API.Repository.Contracts;
@@ -21,7 +22,10 @@ namespace src.Meals.Meals.API.Queries.Ingredients.GetIngredient
         public async Task<IngredientDTO> Handle(
             GetIngredientQuery request, CancellationToken cancellationToken)
         {
-            var ingredient = await _ingredientRepository.GetIngredientAsync(request.Id, false);
+            var ingredient = await _ingredientRepository.GetIngredients(false)
+                .Include(x => x.Meals)
+                .FirstOrDefaultAsync(x => x.Id == request.Id);
+
             if (ingredient == null)
             {
                 throw new IngredientNotFoundException(request.Id);

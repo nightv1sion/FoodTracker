@@ -8,7 +8,7 @@ using src.Meals.Meals.API.Repository;
 
 #nullable disable
 
-namespace Ingredients.API.Migrations
+namespace Meals.API.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
     partial class RepositoryContextModelSnapshot : ModelSnapshot

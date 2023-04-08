@@ -1,5 +1,6 @@
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using src.Meals.Meals.API.Commands.Meals.DTOs;
 using src.Meals.Meals.API.Entities;
 using src.Meals.Meals.API.Exceptions;
@@ -24,16 +25,20 @@ public class UpdateMealCommandHandler : IRequestHandler<UpdateMealCommand, MealD
     }
     public async Task<MealDTO> Handle(UpdateMealCommand request, CancellationToken cancellationToken)
     {
-        var meal = await _mealRepository.GetMealAsync(request.UpdateMealDTO.Id, false);
+        var meal = await _mealRepository.GetMeals(true)
+            .Include(x => x.Ingredients)
+            .FirstOrDefaultAsync(x => x.Id == request.UpdateMealDTO.Id);
         if (meal == null)
         {
             throw new MealNotFoundException(request.UpdateMealDTO.Id);
         }
 
-        var updatedMeal = _mapper.Map<Meal>(request.UpdateMealDTO);
+        meal = _mapper.Map<UpdateMealDTO, Meal>(request.UpdateMealDTO, meal);
+
         if (request.UpdateMealDTO.IngredientsIds != null)
         {
-            updatedMeal.Ingredients = new List<Ingredient>();
+            meal.Ingredients.Clear();
+            await _mealRepository.SaveChangesAsync();
             foreach (var ingredientId in request.UpdateMealDTO.IngredientsIds)
             {
                 var ingredient = await _ingredientRepository.GetIngredientAsync(ingredientId, false);
@@ -41,13 +46,13 @@ public class UpdateMealCommandHandler : IRequestHandler<UpdateMealCommand, MealD
                 {
                     throw new IngredientNotFoundException(ingredientId);
                 }
-                updatedMeal.Ingredients.Add(ingredient);
+                meal.Ingredients.Add(ingredient);
             }
         }
 
-        _mealRepository.UpdateMeal(updatedMeal);
+        _mealRepository.UpdateMeal(meal);
         await _mealRepository.SaveChangesAsync();
-        var dto = _mapper.Map<MealDTO>(updatedMeal);
+        var dto = _mapper.Map<MealDTO>(meal);
         return dto;
     }
 }

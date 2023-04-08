@@ -10,11 +10,15 @@ namespace src.Meals.Meals.API.Commands.Ingredients.UpdateIngredient
     public class UpdateIngredientCommandHandler : IRequestHandler<UpdateIngredientCommand, IngredientDTO>
     {
         private readonly IIngredientRepository _ingredientRepository;
+        private readonly IMealRepository _mealRepository;
         private readonly IMapper _mapper;
         public UpdateIngredientCommandHandler(
-            IIngredientRepository ingredientRepository, IMapper mapper)
+            IIngredientRepository ingredientRepository,
+            IMealRepository mealRepository,
+            IMapper mapper)
         {
             _ingredientRepository = ingredientRepository;
+            _mealRepository = mealRepository;
             _mapper = mapper;
         }
         public async Task<IngredientDTO> Handle(
