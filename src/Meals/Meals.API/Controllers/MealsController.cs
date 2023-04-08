@@ -11,11 +11,11 @@ using src.Meals.Meals.API.Queries.Meals.GetMeals;
 namespace src.Meals.Meals.API.Controllers;
 [ApiController]
 [Route("api/[controller]")]
-public class MealController : ControllerBase
+public class MealsController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public MealController(IMediator mediator)
+    public MealsController(IMediator mediator)
     {
         _mediator = mediator;
     }

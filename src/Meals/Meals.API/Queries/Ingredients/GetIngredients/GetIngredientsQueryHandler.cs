@@ -1,5 +1,6 @@
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using src.Meals.Meals.API.Entities;
 using src.Meals.Meals.API.Queries.Ingredients.DTOs;
 using src.Meals.Meals.API.Repository.Contracts;
@@ -21,7 +22,8 @@ namespace src.Meals.Meals.API.Queries.Ingredients.GetIngredients
         public async Task<IEnumerable<IngredientDTO>> Handle(
             GetIngredientsQuery request, CancellationToken cancellationToken)
         {
-            var ingredients = _ingredientRepository.GetIngredients(true);
+            var ingredients = _ingredientRepository.GetIngredients(true)
+                .Include(x => x.Meals);
             var dtos = _mapper.Map<IEnumerable<IngredientDTO>>(ingredients);
             return dtos;
         }
