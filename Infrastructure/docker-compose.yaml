@@ -4,7 +4,7 @@ services:
   apigateway:
     container_name: api_gateway
     ports: 
-      - 5001:80
+      - 5000:80
     build:
       context: ../src/ApiGateways/APIGateway
     networks:
@@ -16,7 +16,7 @@ services:
   foodtrackerapi:
     container_name: foodtracker_api
     ports: 
-      - 5000:80
+      - 5001:80
     env_file:
       - env/foodtracker_api.env
     build:
@@ -38,8 +38,36 @@ services:
       - env/foodtracker_db.env
     networks:
       - foodtrackerservice
+
+  workouttrackerapi:
+    container_name: workouttracker_api
+    ports:
+      - 5002:80
+    env_file:
+      - env/workouttracker_api.env
+    build:
+      context: ../src/WorkoutTracker/WorkoutTracker.API
+    networks:
+      - workouttrackerservice
+      - gateway-net
+    depends_on:
+      - workouttrackerdb
+
+  workouttrackerdb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: workouttracker_db
+    ports: 
+      - 1434:1433
+    environment:
+      - ACCEPT_EULA=Y
+    env_file:
+      - env/workouttracker_db.env
+    networks:
+      - workouttrackerservice
       
 networks: 
+  workouttrackerservice:
+    name: workouttracker_service
   foodtrackerservice:
     name: foodtracker_service
   gateway-net:
