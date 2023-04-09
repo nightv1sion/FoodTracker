@@ -10,38 +10,38 @@ services:
     networks:
       - gateway-net
     depends_on:
-      - mealsapi
-      - mealsdb
+      - foodtrackerapi
+      - foodtrackerdb
 
-  mealsapi:
-    container_name: meals_api
+  foodtrackerapi:
+    container_name: foodtracker_api
     ports: 
       - 5000:80
     env_file:
-      - env/meals_api.env
+      - env/foodtracker_api.env
     build:
-      context: ../src/Meals/Meals.API
+      context: ../src/FoodTracker/FoodTracker.API
     networks:
-      - mealsservice
+      - foodtrackerservice
       - gateway-net
     depends_on:
-      - mealsdb
+      - foodtrackerdb
     
-  mealsdb:
+  foodtrackerdb:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: meals_db
+    container_name: foodtracker_db
     ports:
       - 1433:1433
     environment:
       - ACCEPT_EULA=Y
     env_file:
-      - env/meals_db.env
+      - env/foodtracker_db.env
     networks:
-      - mealsservice
+      - foodtrackerservice
       
 networks: 
-  mealsservice:
-    name: meals_service
+  foodtrackerservice:
+    name: foodtracker_service
   gateway-net:
     name: gateway_network
   
