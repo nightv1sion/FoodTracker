@@ -1,5 +1,7 @@
 /src/foodtracker/foodtracker.api/bin
 /src/foodtracker/foodtracker.api/obj
+/src/workouttracker/workouttracker.api/bin
+/src/workouttracker/workouttracker.api/obj
 /src/apigateways/apigateway/bin
 /src/apigateways/apigateway/obj
 
