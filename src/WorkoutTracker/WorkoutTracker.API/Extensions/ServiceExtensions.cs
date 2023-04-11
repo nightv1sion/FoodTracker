@@ -1,6 +1,10 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using src.WorkoutTracker.API.Helper;
 using src.WorkoutTracker.API.Repository;
+using src.WorkoutTracker.API.Repository.Contracts;
+using src.WorkoutTracker.API.Service;
+using src.WorkoutTracker.API.Service.Contracts;
 
 namespace src.WorkoutTracker.API.Extensions;
 public static class ServiceExtensions
@@ -23,5 +27,21 @@ public static class ServiceExtensions
                 context.Database.Migrate();
             }
         }
+    }
+    public static void ConfigureRepositories(this IServiceCollection services)
+    {
+        services.AddScoped<IExerciseRepository, ExerciseRepository>();
+        services.AddScoped<ICompletedExerciseRepository, CompletedExerciseRepository>();
+        services.AddScoped<ITrainingRepository, TrainingRepository>();
+    }
+    public static void ConfigureServices(this IServiceCollection services)
+    {
+        services.AddScoped<IExerciseService, ExerciseService>();
+        services.AddScoped<ICompletedExerciseService, CompletedExerciseService>();
+        services.AddScoped<ITrainingService, TrainingService>();
+    }
+    public static void ConfigureAutoMapper(this IServiceCollection services)
+    {
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
     }
 }
