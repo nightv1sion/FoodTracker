@@ -17,7 +17,7 @@ public class MealsController : ControllerBase
         IStringContentCreator contentCreator,
         IProxyClient proxyClient)
     {
-        _apiPath = configuration["MealsAPI:Meals"];
+        _apiPath = configuration["FoodTrackerAPI:Meals"];
         _requestReader = requestReader;
         _contentCreator = contentCreator;
         _proxyClient = proxyClient;
