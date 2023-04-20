@@ -18,7 +18,7 @@ namespace src.WorkoutTracker.API.Middlewares
             }
             catch (NotFoundException exception)
             {
-                Console.WriteLine(exception.Message);
+                context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
                 await context.Response.WriteAsync(exception.Message);
             }
