@@ -19,6 +19,7 @@ namespace src.FoodTracker.API.Middlewares
             }
             catch (NotFoundException exception)
             {
+                context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
                 await context.Response.WriteAsync(exception.Message);
             }
