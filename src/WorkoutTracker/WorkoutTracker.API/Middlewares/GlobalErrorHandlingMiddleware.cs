@@ -1,17 +1,16 @@
 using System.Net;
-using MediatR;
-using src.FoodTracker.API.Exceptions;
+using src.WorkoutTracker.API.Exceptions.Contracts;
 
-namespace src.FoodTracker.API.Middlewares
+namespace src.WorkoutTracker.API.Middlewares
 {
-    public class MediatorErrorHandlingMiddleware
+    public class GlobalErrorHandlingMiddleware
     {
         private readonly RequestDelegate _next;
-        public MediatorErrorHandlingMiddleware(RequestDelegate next)
+        public GlobalErrorHandlingMiddleware(RequestDelegate next)
         {
             _next = next;
         }
-        public async Task Invoke(HttpContext context, IMediator mediator)
+        public async Task Invoke(HttpContext context)
         {
             try
             {
@@ -19,7 +18,7 @@ namespace src.FoodTracker.API.Middlewares
             }
             catch (NotFoundException exception)
             {
-                context.Response.ContentType = "application/json";
+                Console.WriteLine(exception.Message);
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
                 await context.Response.WriteAsync(exception.Message);
             }
