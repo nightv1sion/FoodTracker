@@ -18,4 +18,8 @@ public static class ServicesExtensions
     {
         services.AddScoped<IProxyClient, ProxyClient>();
     }
+    public static void ConfigureGrpcClients(this IServiceCollection services)
+    {
+        services.AddScoped<IIngredientsGrpcClient, IngredientsGrpcClient>();
+    }
 }

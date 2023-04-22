@@ -14,14 +14,14 @@ builder.Services.AddHttpClient();
 builder.Services.ConfigureHttpRequestReader();
 builder.Services.ConfigureStringContentCreator();
 builder.Services.ConfigureProxyClient();
+builder.Services.ConfigureGrpcClients();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+// app.UseHttpsRedirection();
 app.UseSwagger();
 app.UseSwaggerUI();
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

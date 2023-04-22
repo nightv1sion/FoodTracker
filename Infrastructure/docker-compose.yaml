@@ -17,6 +17,7 @@ services:
     container_name: foodtracker_api
     ports: 
       - 5001:80
+      - 9001:81
     env_file:
       - env/foodtracker_api.env
     build:
