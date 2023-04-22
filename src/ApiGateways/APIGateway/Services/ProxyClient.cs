@@ -44,9 +44,17 @@ namespace src.ApiGateways.APIGateway.Services
         {
             ActionResult result = null;
             var responseContent = await response.Content.ReadAsStringAsync();
-            var content = JsonConvert.SerializeObject(
-                JsonConvert.DeserializeObject(responseContent), Formatting.Indented);
-            Console.WriteLine(response.StatusCode);
+
+            string content = null;
+            try
+            {
+                content = JsonConvert.SerializeObject(
+                    JsonConvert.DeserializeObject(responseContent), Formatting.Indented);
+            }
+            catch
+            {
+                content = responseContent;
+            }
             switch (response.StatusCode)
             {
                 case System.Net.HttpStatusCode.OK:
