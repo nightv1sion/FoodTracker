@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+service Ingredients {
+    rpc GetIngredients (GetIngredientsRequest) returns (GetIngredientsResponse);
+    rpc GetIngredient (GetIngredientRequest) returns (GetIngredientResponse);
+    rpc CreateIngredient (CreateIngredientRequest) returns (CreateIngredientResponse);
+    rpc UpdateIngredient (UpdateIngredientRequest) returns (UpdateIngredientResponse);
+    rpc DeleteIngredient (DeleteIngredientRequest) returns (DeleteIngredientResponse);
+}
+
+message IngredientProto {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    double calories = 4;
+    double proteins = 5;
+    double carbs = 6;
+    double fats = 7;
+    repeated string mealsIds = 8;
+}
+
+// Get Ingredients
+message GetIngredientsRequest {
+
+}
+
+message GetIngredientsResponse {
+    repeated IngredientProto ingredients = 1;
+}
+
+// Get Ingredient
+message GetIngredientRequest {
+    string id = 1;
+} 
+
+message GetIngredientResponse {
+    IngredientProto ingredient = 1;
+}
+
+// Create Ingredient
+message CreateIngredientProto {
+    string name = 1;
+    string description = 2;
+    double calories = 3;
+    double proteins = 4;
+    double carbs = 5;
+    double fats = 6;
+    repeated string mealsIds = 7;
+}
+
+message CreateIngredientRequest {
+    CreateIngredientProto ingredient = 1;
+}
+
+message CreateIngredientResponse {
+    IngredientProto ingredient = 1;
+}
+
+// Update Ingredient
+message UpdateIngredientProto {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    double calories = 4;
+    double proteins = 5;
+    double carbs = 6;
+    double fats = 7;
+    repeated string mealsIds = 8;
+}
+
+message UpdateIngredientRequest {
+    UpdateIngredientProto ingredient = 1;
+}
+
+message UpdateIngredientResponse {
+    IngredientProto ingredient = 1;
+}
+
+// Delete Ingredient
+message DeleteIngredientRequest {
+    string id = 1;
+}
+
+message DeleteIngredientResponse {
+
+}

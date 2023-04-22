@@ -22,13 +22,13 @@ namespace src.FoodTracker.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Ingredient>>> GetIngredients()
+        public async Task<ActionResult> GetIngredients()
         {
             var ingredients = await _mediator.Send(new GetIngredientsQuery());
             return Ok(ingredients);
         }
         [HttpGet("{id:guid}", Name = "GetIngredientById")]
-        public async Task<ActionResult<Ingredient>> GetIngredient(Guid id)
+        public async Task<ActionResult> GetIngredient(Guid id)
         {
             var ingredient = await _mediator.Send(new GetIngredientQuery(id));
             if (ingredient == null)
@@ -38,7 +38,7 @@ namespace src.FoodTracker.API.Controllers
             return Ok(ingredient);
         }
         [HttpPost]
-        public async Task<ActionResult<Ingredient>> CreateIngredient(CreateIngredientDTO dto)
+        public async Task<ActionResult> CreateIngredient(CreateIngredientDTO dto)
         {
             var ingredient = await _mediator.Send(new CreateIngredientCommand(dto));
             return CreatedAtRoute("GetIngredientById", new { Id = ingredient.Id }, ingredient);
