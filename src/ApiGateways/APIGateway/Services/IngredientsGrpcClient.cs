@@ -26,7 +26,6 @@ public class IngredientsGrpcClient : IIngredientsGrpcClient
         {
             Id = id.ToString()
         });
-        Console.WriteLine(JsonSerializer.Serialize(reply));
         return reply.Ingredient;
     }
     public async Task<IngredientProto> CreateIngredientAsync(CreateIngredientProto ingredient)

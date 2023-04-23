@@ -15,7 +15,6 @@ public class GrpcErrorHandlingInterceptor : Interceptor
         }
         catch (RpcException exception)
         {
-            Console.WriteLine(JsonSerializer.Serialize(exception.Status));
             throw;
         }
     }
