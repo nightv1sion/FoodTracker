@@ -45,7 +45,6 @@ message CreateIngredientProto {
     double proteins = 4;
     double carbs = 5;
     double fats = 6;
-    repeated string mealsIds = 7;
 }
 
 message CreateIngredientRequest {
@@ -65,7 +64,6 @@ message UpdateIngredientProto {
     double proteins = 5;
     double carbs = 6;
     double fats = 7;
-    repeated string mealsIds = 8;
 }
 
 message UpdateIngredientRequest {

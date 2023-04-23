@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc;
 using src.ApiGateways.APIGateway.Services.Contracts;
@@ -43,22 +44,23 @@ public class IngredientsController : ControllerBase
         return Ok(ingredient);
     }
     [HttpPost]
-    public async Task<ActionResult> CreateIngredient()
+    public async Task<ActionResult> CreateIngredient(CreateIngredientProto ingredientProto)
     {
-        var body = await _requestReader.ReadRequestBodyAsync(Request);
-        return await _proxyClient.PostToAsync(_apiPath, body);
+        var ingredient = await _ingredientGrpcClient.CreateIngredientAsync(ingredientProto);
+        return Ok(ingredient);
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateIngredient()
+    public async Task<ActionResult> UpdateIngredient(UpdateIngredientProto ingredientProto)
     {
-        var body = await _requestReader.ReadRequestBodyAsync(Request);
-        return await _proxyClient.PutToAsync(_apiPath, body);
+        var ingredient = await _ingredientGrpcClient.UpdateIngredientAsync(ingredientProto);
+        return Ok(ingredient);
     }
 
     [HttpDelete("{id:guid}")]
     public async Task<ActionResult> DeleteIngredient(Guid id)
     {
-        return await _proxyClient.DeleteToAsync($"{_apiPath}/{id}");
+        await _ingredientGrpcClient.DeleteIngredientAsync(id);
+        return Ok();
     }
 }

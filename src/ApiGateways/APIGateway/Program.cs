@@ -1,4 +1,5 @@
 using src.ApiGateways.APIGateway.Extensions;
+using src.ApiGateways.APIGateway.Middlewares;
 using src.ApiGateways.APIGateway.Services;
 using src.ApiGateways.APIGateway.Services.Contracts;
 
@@ -24,7 +25,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseAuthorization();
-
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.MapControllers();
 
 app.Run();
