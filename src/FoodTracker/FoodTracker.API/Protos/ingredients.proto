@@ -1,6 +1,4 @@
 syntax = "proto3";
-import "google/protobuf/wrappers.proto";
-
 
 service Ingredients {
     rpc GetIngredients (GetIngredientsRequest) returns (GetIngredientsResponse);
@@ -41,11 +39,7 @@ message GetIngredientResponse {
 
 // Create Ingredient
 message CreateIngredientProto {
-    string name = 1 [
-        (google.protobuf.StringValue).rules = {
-            required: true
-        }
-    ];
+    string name = 1;
     string description = 2;
     double calories = 3;
     double proteins = 4;
