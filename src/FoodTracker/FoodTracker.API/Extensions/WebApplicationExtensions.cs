@@ -1,5 +1,6 @@
 using System.Net;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using src.FoodTracker.API.GrpcServices;
 
 namespace src.FoodTracker.API.Extensions;
 public static class WebApplicationExtensions
@@ -19,5 +20,10 @@ public static class WebApplicationExtensions
                 listenOptions.Protocols = HttpProtocols.Http2;
             });
         });
+    }
+    public static void MapGrpcServices(this WebApplication app)
+    {
+        app.MapGrpcService<IngredientsGrpcService>();
+        app.MapGrpcService<MealsGrpcService>();
     }
 }

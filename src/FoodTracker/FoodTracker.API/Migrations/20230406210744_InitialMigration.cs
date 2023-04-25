@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Meals.API.Migrations
+namespace src.FoodTracker.API.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration

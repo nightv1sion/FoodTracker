@@ -27,5 +27,6 @@
   </ItemGroup>
   <ItemGroup>
     <Protobuf Include="Protos\ingredients.proto" />
+    <Protobuf Include="Protos\meals.proto" />
   </ItemGroup>
 </Project>
