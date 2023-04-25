@@ -21,5 +21,6 @@ public static class ServicesExtensions
     public static void ConfigureGrpcClients(this IServiceCollection services)
     {
         services.AddScoped<IIngredientsGrpcClient, IngredientsGrpcClient>();
+        services.AddScoped<IMealsGrpcClient, MealsGrpcClient>();
     }
 }

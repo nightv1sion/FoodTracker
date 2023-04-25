@@ -32,6 +32,6 @@ app.UseSwaggerUI();
 app.UseAuthorization();
 app.UseMiddleware<MediatorErrorHandlingMiddleware>();
 app.MapControllers();
-app.MapGrpcService<IngredientsGrpcService>();
+app.MapGrpcServices();
 
 app.Run();

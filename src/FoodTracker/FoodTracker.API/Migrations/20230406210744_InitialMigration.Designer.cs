@@ -9,7 +9,7 @@ using src.FoodTracker.API.Repository;
 
 #nullable disable
 
-namespace Meals.API.Migrations
+namespace src.FoodTracker.API.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
     [Migration("20230406210744_InitialMigration")]

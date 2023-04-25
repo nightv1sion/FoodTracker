@@ -1,56 +1,54 @@
+using System.Text;
+using System.Text.Json;
+using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc;
 using src.ApiGateways.APIGateway.Services.Contracts;
 
 namespace src.ApiGateways.APIGateway.Controllers.FoodTracker.API;
+
 [Route("foodtracker-api/[controller]")]
 [ApiController]
 public class MealsController : ControllerBase
 {
-    private readonly string _apiPath;
-    private readonly IHttpRequestReader _requestReader;
-    private readonly IStringContentCreator _contentCreator;
-    private readonly IProxyClient _proxyClient;
+    private readonly IMealsGrpcClient _mealGrpcClient;
 
     public MealsController(
-        IConfiguration configuration,
-        IHttpRequestReader requestReader,
-        IStringContentCreator contentCreator,
-        IProxyClient proxyClient)
+        IMealsGrpcClient mealGrpcClient
+        )
     {
-        _apiPath = configuration["FoodTrackerAPI:Meals"];
-        _requestReader = requestReader;
-        _contentCreator = contentCreator;
-        _proxyClient = proxyClient;
+        _mealGrpcClient = mealGrpcClient;
     }
 
     [HttpGet]
     public async Task<ActionResult> GetMeals()
     {
-        return await _proxyClient.GetToAsync(_apiPath);
+        var meals = await _mealGrpcClient.GetMealsAsync();
+        return Ok(meals);
     }
     [HttpGet("{id:guid}")]
     public async Task<ActionResult> GetMealById(Guid id)
     {
-        return await _proxyClient.GetToAsync($"{_apiPath}/{id}");
+        var meal = await _mealGrpcClient.GetMealAsync(id);
+        return Ok(meal);
     }
-
     [HttpPost]
-    public async Task<ActionResult> CreateMeal()
+    public async Task<ActionResult> CreateMeal(CreateMealProto mealProto)
     {
-        var body = await _requestReader.ReadRequestBodyAsync(Request);
-        return await _proxyClient.PostToAsync(_apiPath, body);
+        var meal = await _mealGrpcClient.CreateMealAsync(mealProto);
+        return Ok(meal);
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateMeal()
+    public async Task<ActionResult> UpdateMeal(UpdateMealProto mealProto)
     {
-        var body = await _requestReader.ReadRequestBodyAsync(Request);
-        return await _proxyClient.PutToAsync(_apiPath, body);
+        var meal = await _mealGrpcClient.UpdateMealAsync(mealProto);
+        return Ok(meal);
     }
 
     [HttpDelete("{id:guid}")]
     public async Task<ActionResult> DeleteMeal(Guid id)
     {
-        return await _proxyClient.DeleteToAsync($"{_apiPath}/{id}");
+        await _mealGrpcClient.DeleteMealAsync(id);
+        return Ok();
     }
 }

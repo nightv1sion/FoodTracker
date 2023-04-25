@@ -10,24 +10,12 @@ namespace src.ApiGateways.APIGateway.Controllers.FoodTracker.API;
 [ApiController]
 public class IngredientsController : ControllerBase
 {
-    private readonly string _apiPath;
-    private readonly IHttpRequestReader _requestReader;
-    private readonly IStringContentCreator _contentCreator;
-    private readonly IProxyClient _proxyClient;
     private readonly IIngredientsGrpcClient _ingredientGrpcClient;
 
     public IngredientsController(
-        IConfiguration configuration,
-        IHttpRequestReader requestReader,
-        IStringContentCreator contentCreator,
-        IProxyClient proxyClient,
         IIngredientsGrpcClient ingredientGrpcClient
         )
     {
-        _apiPath = configuration["FoodTrackerAPI:Ingredients"];
-        _requestReader = requestReader;
-        _contentCreator = contentCreator;
-        _proxyClient = proxyClient;
         _ingredientGrpcClient = ingredientGrpcClient;
     }
 

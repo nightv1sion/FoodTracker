@@ -19,5 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <Protobuf Include="Protos\FoodTracker.API\ingredients.proto" />
+    <Protobuf Include="Protos\FoodTracker.API\meals.proto" />
   </ItemGroup>
 </Project>

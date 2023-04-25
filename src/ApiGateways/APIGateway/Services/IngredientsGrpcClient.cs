@@ -11,7 +11,7 @@ public class IngredientsGrpcClient : IIngredientsGrpcClient
     private readonly Ingredients.IngredientsClient _client;
     public IngredientsGrpcClient(IConfiguration configuration)
     {
-        var channel = GrpcChannel.ForAddress(configuration["FoodTrackerAPI:Ingredients"]);
+        var channel = GrpcChannel.ForAddress(configuration["FoodTrackerAPI"]);
         _client = new Ingredients.IngredientsClient(channel.Intercept(new GrpcErrorHandlingInterceptor()));
     }
 

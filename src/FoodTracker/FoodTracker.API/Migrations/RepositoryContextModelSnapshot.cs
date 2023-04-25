@@ -8,7 +8,7 @@ using src.FoodTracker.API.Repository;
 
 #nullable disable
 
-namespace Meals.API.Migrations
+namespace src.FoodTracker.API.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
     partial class RepositoryContextModelSnapshot : ModelSnapshot

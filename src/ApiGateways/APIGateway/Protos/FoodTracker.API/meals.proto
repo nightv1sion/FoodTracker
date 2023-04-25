@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+service Meals {
+    rpc GetMeals (GetMealsRequest) returns (GetMealsResponse);
+    rpc GetMeal (GetMealRequest) returns (GetMealResponse);
+    rpc CreateMeal (CreateMealRequest) returns (CreateMealResponse);
+    rpc UpdateMeal (UpdateMealRequest) returns (UpdateMealResponse);
+    rpc DeleteMeal (DeleteMealRequest) returns (DeleteMealResponse);
+}
+
+message MealProto {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    repeated string ingredientsIds = 4;
+}
+
+// Get Meals
+message GetMealsRequest {
+
+}
+
+message GetMealsResponse {
+    repeated MealProto meals = 1;
+}
+
+// Get Meal
+message GetMealRequest {
+    string id = 1;
+} 
+
+message GetMealResponse {
+    MealProto meal = 1;
+}
+
+// Create Meal
+message CreateMealProto {
+    string name = 1;
+    string description = 2;
+    repeated string ingredientsIds = 3;
+}
+
+message CreateMealRequest {
+    CreateMealProto meal = 1;
+}
+
+message CreateMealResponse {
+    MealProto meal = 1;
+}
+
+// Update Meal
+message UpdateMealProto {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    repeated string ingredientsIds = 4;
+}
+
+message UpdateMealRequest {
+    UpdateMealProto meal = 1;
+}
+
+message UpdateMealResponse {
+    MealProto meal = 1;
+}
+
+// Delete Meal
+message DeleteMealRequest {
+    string id = 1;
+}
+
+message DeleteMealResponse {
+
+}
