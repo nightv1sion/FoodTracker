@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.Json;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc;
+using src.ApiGateways.APIGateway.DataTransferObjects.FoodTracker.API;
 using src.ApiGateways.APIGateway.Services.Contracts;
 
 namespace src.ApiGateways.APIGateway.Controllers.FoodTracker.API;
@@ -32,16 +33,16 @@ public class MealsController : ControllerBase
         return Ok(meal);
     }
     [HttpPost]
-    public async Task<ActionResult> CreateMeal(CreateMealProto mealProto)
+    public async Task<ActionResult> CreateMeal(CreateMealDTO dto)
     {
-        var meal = await _mealGrpcClient.CreateMealAsync(mealProto);
+        var meal = await _mealGrpcClient.CreateMealAsync(dto);
         return Ok(meal);
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateMeal(UpdateMealProto mealProto)
+    public async Task<ActionResult> UpdateMeal(UpdateMealDTO dto)
     {
-        var meal = await _mealGrpcClient.UpdateMealAsync(mealProto);
+        var meal = await _mealGrpcClient.UpdateMealAsync(dto);
         return Ok(meal);
     }
 

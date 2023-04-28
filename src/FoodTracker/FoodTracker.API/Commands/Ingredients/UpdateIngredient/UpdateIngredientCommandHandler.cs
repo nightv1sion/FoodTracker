@@ -29,7 +29,7 @@ namespace src.FoodTracker.API.Commands.Ingredients.UpdateIngredient
             {
                 throw new IngredientNotFoundException(request.UpdateIngredientDTO.Id);
             }
-            var updatedIngredient = _mapper.Map<Ingredient>(request.UpdateIngredientDTO);
+            var updatedIngredient = _mapper.Map<UpdateIngredientDTO, Ingredient>(request.UpdateIngredientDTO, ingredient);
             _ingredientRepository.UpdateIngredient(updatedIngredient);
             await _ingredientRepository.SaveChangesAsync();
             var dto = _mapper.Map<IngredientDTO>(updatedIngredient);

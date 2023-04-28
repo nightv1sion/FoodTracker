@@ -16,7 +16,6 @@ message IngredientProto {
     double proteins = 5;
     double carbs = 6;
     double fats = 7;
-    repeated string mealsIds = 8;
 }
 
 // Get Ingredients
