@@ -37,15 +37,23 @@ public class UpdateMealCommandHandler : IRequestHandler<UpdateMealCommand, MealD
 
         if (request.UpdateMealDTO.IngredientsIds != null)
         {
-            meal.Ingredients.Clear();
-            await _mealRepository.SaveChangesAsync();
-            foreach (var ingredientId in request.UpdateMealDTO.IngredientsIds)
+            var ingredientsIntersection = meal.Ingredients.Select(x => x.Id).Intersect(request.UpdateMealDTO.IngredientsIds);
+            var ingredientsToRemove = meal.Ingredients.Where(x => !ingredientsIntersection.Contains(x.Id));
+            foreach (var ingredient in ingredientsToRemove)
+            {
+                meal.Ingredients.Remove(ingredient);
+            }
+
+            var ingredientsToAdd = request.UpdateMealDTO.IngredientsIds.Except(ingredientsIntersection);
+
+            foreach (var ingredientId in ingredientsToAdd)
             {
                 var ingredient = await _ingredientRepository.GetIngredientAsync(ingredientId, false);
                 if (ingredient == null)
                 {
                     throw new IngredientNotFoundException(ingredientId);
                 }
+
                 meal.Ingredients.Add(ingredient);
             }
         }

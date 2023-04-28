@@ -1,6 +1,8 @@
 using System.Text.Json;
+using AutoMapper;
 using Grpc.Core.Interceptors;
 using Grpc.Net.Client;
+using src.ApiGateways.APIGateway.DataTransferObjects.FoodTracker.API;
 using src.ApiGateways.APIGateway.Interceptors;
 using src.ApiGateways.APIGateway.Services.Contracts;
 
@@ -9,10 +11,15 @@ namespace src.ApiGateways.APIGateway.Services;
 public class MealsGrpcClient : IMealsGrpcClient
 {
     private readonly Meals.MealsClient _client;
-    public MealsGrpcClient(IConfiguration configuration)
+    private readonly IMapper _mapper;
+
+    public MealsGrpcClient(
+        IConfiguration configuration,
+        IMapper mapper)
     {
         var channel = GrpcChannel.ForAddress(configuration["FoodTrackerAPI"]);
         _client = new Meals.MealsClient(channel.Intercept(new GrpcErrorHandlingInterceptor()));
+        _mapper = mapper;
     }
 
     public async Task<IEnumerable<MealProto>> GetMealsAsync()
@@ -28,17 +35,20 @@ public class MealsGrpcClient : IMealsGrpcClient
         });
         return reply.Meal;
     }
-    public async Task<MealProto> CreateMealAsync(CreateMealProto meal)
+    public async Task<MealProto> CreateMealAsync(CreateMealDTO dto)
     {
-        Console.WriteLine(JsonSerializer.Serialize(meal));
+        var meal = _mapper.Map<CreateMealProto>(dto);
+        meal.IngredientsIds.AddRange(dto.IngredientsIds.Select(x => x.ToString()));
         var reply = await _client.CreateMealAsync(new CreateMealRequest()
         {
             Meal = meal
         });
         return reply.Meal;
     }
-    public async Task<MealProto> UpdateMealAsync(UpdateMealProto meal)
+    public async Task<MealProto> UpdateMealAsync(UpdateMealDTO dto)
     {
+        var meal = _mapper.Map<UpdateMealProto>(dto);
+        meal.IngredientsIds.AddRange(dto.IngredientsIds.Select(x => x.ToString()));
         var reply = await _client.UpdateMealAsync(new UpdateMealRequest()
         {
             Meal = meal

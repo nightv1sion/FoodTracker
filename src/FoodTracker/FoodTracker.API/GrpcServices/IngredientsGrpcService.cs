@@ -28,10 +28,6 @@ public class IngredientsGrpcService : Ingredients.IngredientsBase
         foreach (var ingredient in ingredients)
         {
             var ingredientProto = _mapper.Map<IngredientProto>(ingredient);
-            foreach (var mealId in ingredient.MealsIds)
-            {
-                ingredientProto.MealsIds.Add(mealId.ToString());
-            }
             response.Ingredients.Add(ingredientProto);
         }
         return response;
@@ -42,10 +38,7 @@ public class IngredientsGrpcService : Ingredients.IngredientsBase
         var id = Guid.Parse(request.Id);
         var ingredient = await _mediator.Send(new GetIngredientQuery(id));
         var ingredientProto = _mapper.Map<IngredientProto>(ingredient);
-        foreach (var mealId in ingredient.MealsIds)
-        {
-            ingredientProto.MealsIds.Add(mealId.ToString());
-        }
+
         var response = new GetIngredientResponse()
         {
             Ingredient = ingredientProto
@@ -59,10 +52,6 @@ public class IngredientsGrpcService : Ingredients.IngredientsBase
         var ingredient = await _mediator.Send(new CreateIngredientCommand(createIngredientDto));
         var ingredientProto = _mapper.Map<IngredientProto>(ingredient);
 
-        foreach (var mealId in ingredient.MealsIds)
-        {
-            ingredientProto.MealsIds.Add(mealId.ToString());
-        }
         var response = new CreateIngredientResponse()
         {
             Ingredient = ingredientProto
@@ -76,10 +65,6 @@ public class IngredientsGrpcService : Ingredients.IngredientsBase
         var ingredient = await _mediator.Send(new UpdateIngredientCommand(createIngredientDto));
         var ingredientProto = _mapper.Map<IngredientProto>(ingredient);
 
-        foreach (var mealId in ingredient.MealsIds)
-        {
-            ingredientProto.MealsIds.Add(mealId.ToString());
-        }
         var response = new UpdateIngredientResponse()
         {
             Ingredient = ingredientProto

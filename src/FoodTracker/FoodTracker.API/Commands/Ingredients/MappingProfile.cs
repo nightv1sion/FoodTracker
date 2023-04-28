@@ -10,8 +10,7 @@ namespace src.FoodTracker.API.Commands.Ingredients
         {
             CreateMap<CreateIngredientDTO, Ingredient>();
             CreateMap<UpdateIngredientDTO, Ingredient>();
-            CreateMap<Ingredient, IngredientDTO>()
-                .ForMember(dto => dto.MealsIds, entity => entity.MapFrom(x => x.Meals.Select(meal => meal.Id)));
+            CreateMap<Ingredient, IngredientDTO>();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Reflection;
 using src.ApiGateways.APIGateway.Extensions;
 using src.ApiGateways.APIGateway.Middlewares;
 using src.ApiGateways.APIGateway.Services;
@@ -16,6 +17,7 @@ builder.Services.ConfigureHttpRequestReader();
 builder.Services.ConfigureStringContentCreator();
 builder.Services.ConfigureProxyClient();
 builder.Services.ConfigureGrpcClients();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 
