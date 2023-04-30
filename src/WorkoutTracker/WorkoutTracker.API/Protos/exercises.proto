@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+service Exercises {
+    rpc GetExercises (GetExercisesRequest) returns (GetExercisesResponse);
+    rpc GetExercise (GetExerciseRequest) returns (GetExerciseResponse);
+    rpc CreateExercise (CreateExerciseRequest) returns (CreateExerciseResponse);
+    rpc UpdateExercise (UpdateExerciseRequest) returns (UpdateExerciseResponse);
+    rpc DeleteExercise (DeleteExerciseRequest) returns (DeleteExerciseResponse);
+}
+
+message ExerciseProto {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    double calories = 4;
+}
+
+message GetExercisesRequest {
+
+}
+
+message GetExercisesResponse {
+    repeated ExerciseProto exercises = 1;
+}
+
+message GetExerciseRequest {
+    string id = 1;
+}
+
+message GetExerciseResponse {
+    ExerciseProto exercise = 1;
+}
+
+message CreateExerciseProto {
+    string name = 1;
+    string description = 2;
+    double calories = 3;
+}
+
+message CreateExerciseRequest {
+    CreateExerciseProto exercise = 1;
+}
+
+message CreateExerciseResponse {
+    ExerciseProto exercise = 1;
+}
+
+message UpdateExerciseProto {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    double calories = 4;
+}
+
+message UpdateExerciseRequest {
+    UpdateExerciseProto exercise = 1;
+}
+
+message UpdateExerciseResponse {
+    ExerciseProto exercise = 1;
+}
+
+message DeleteExerciseRequest {
+    string id = 1;
+}
+
+message DeleteExerciseResponse {
+
+}

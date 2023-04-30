@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+service CompletedExercises {
+    rpc GetCompletedExercises (GetCompletedExercisesRequest) returns (GetCompletedExercisesResponse);
+    rpc GetCompletedExercise (GetCompletedExerciseRequest) returns (GetCompletedExerciseResponse);
+    rpc CreateCompletedExercise (CreateCompletedExerciseRequest) returns (CreateCompletedExerciseResponse);
+    rpc UpdateCompletedExercise (UpdateCompletedExerciseRequest) returns (UpdateCompletedExerciseResponse);
+    rpc DeleteCompletedExercise (DeleteCompletedExerciseRequest) returns (DeleteCompletedExerciseResponse);
+}
+
+message CompletedExerciseProto {
+    string id = 1;
+    string exerciseId = 2;
+    repeated int32 repeationCount = 3;
+    string trainingId = 4;
+}
+
+message GetCompletedExercisesRequest {
+
+}
+
+message GetCompletedExercisesResponse {
+    repeated CompletedExerciseProto completedExercises = 1;
+}
+
+message GetCompletedExerciseRequest {
+    string id = 1;
+}
+
+message GetCompletedExerciseResponse {
+    CompletedExerciseProto completedExercise = 1;
+}
+
+message CreateCompletedExerciseProto {
+    string exerciseId = 1;
+    repeated int32 repeationCount = 2;
+    string trainingId = 3;
+}
+
+message CreateCompletedExerciseRequest {
+    CreateCompletedExerciseProto completedExercise = 1;
+}
+
+message CreateCompletedExerciseResponse {
+    CompletedExerciseProto completedExercise = 1;
+}
+
+message UpdateCompletedExerciseProto {
+    string id = 1;
+    string exerciseId = 2;
+    repeated int32 repeationCount = 3;
+    string trainingId = 4;
+}
+
+message UpdateCompletedExerciseRequest {
+    UpdateCompletedExerciseProto completedExercise = 1;
+}
+
+message UpdateCompletedExerciseResponse {
+    CompletedExerciseProto completedExercise = 1;
+}
+
+message DeleteCompletedExerciseRequest {
+    string id = 1;
+}
+
+message DeleteCompletedExerciseResponse {
+
+}

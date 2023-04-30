@@ -44,4 +44,7 @@ public static class ServiceExtensions
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
     }
+    public static void ConfigureGrpcServices(this IServiceCollection services)
+    {
+    }
 }
