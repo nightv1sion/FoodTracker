@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+service Trainings {
+    rpc GetTrainings (GetTrainingsRequest) returns (GetTrainingsResponse);
+    rpc GetTraining (GetTrainingRequest) returns (GetTrainingResponse);
+    rpc CreateTraining (CreateTrainingRequest) returns (CreateTrainingResponse);
+    rpc UpdateTraining (UpdateTrainingRequest) returns (UpdateTrainingResponse);
+    rpc DeleteTraining (DeleteTrainingRequest) returns (DeleteTrainingResponse);
+}
+
+message TrainingProto {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    repeated string completedExercisesIds = 4;
+}
+
+message GetTrainingsRequest {
+
+}
+
+message GetTrainingsResponse {
+    repeated TrainingProto trainings = 1;
+}
+
+message GetTrainingRequest {
+    string id = 1;
+}
+
+message GetTrainingResponse {
+    TrainingProto training = 1;
+}
+
+message CreateTrainingProto {
+    string name = 1;
+    string description = 2;
+}
+
+message CreateTrainingRequest {
+    CreateTrainingProto training = 1;
+}
+
+message CreateTrainingResponse {
+    TrainingProto training = 1;
+}
+
+message UpdateTrainingProto {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+}
+
+message UpdateTrainingRequest {
+    UpdateTrainingProto training = 1;
+}
+
+message UpdateTrainingResponse {
+    TrainingProto training = 1;
+}
+
+message DeleteTrainingRequest {
+    string id = 1;
+}
+
+message DeleteTrainingResponse {
+
+}

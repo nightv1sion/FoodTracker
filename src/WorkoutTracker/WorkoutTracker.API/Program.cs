@@ -1,11 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using src.WorkoutTracker.API.Extensions;
+using src.WorkoutTracker.API.Intereptors;
 using src.WorkoutTracker.API.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.ConfigureHttp1AndHttp2();
 
+// Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -15,7 +17,8 @@ builder.Services.MigrateDatabase();
 builder.Services.ConfigureRepositories();
 builder.Services.ConfigureServices();
 builder.Services.ConfigureAutoMapper();
-
+builder.Services.AddGrpcSwagger();
+builder.Services.AddGrpc(x => x.Interceptors.Add<GrpcGlobalExceptionHandlerInterceptor>());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,5 +33,7 @@ app.UseAuthorization();
 app.UseGlobalErrorHandling();
 
 app.MapControllers();
+
+app.MapGrpcServices();
 
 app.Run();

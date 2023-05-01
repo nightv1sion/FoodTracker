@@ -21,5 +21,8 @@
   <ItemGroup>
     <Protobuf Include="Protos\FoodTracker.API\ingredients.proto" />
     <Protobuf Include="Protos\FoodTracker.API\meals.proto" />
+    <Protobuf Include="Protos\WorkoutTracker.API\exercises.proto" />
+    <Protobuf Include="Protos\WorkoutTracker.API\completedexercises.proto" />
+    <Protobuf Include="Protos\WorkoutTracker.API\trainings.proto" />
   </ItemGroup>
 </Project>

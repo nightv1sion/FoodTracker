@@ -22,6 +22,12 @@ namespace src.WorkoutTracker.API.Middlewares
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
                 await context.Response.WriteAsync(exception.Message);
             }
+            catch (Exception exception)
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                await context.Response.WriteAsync("Something went wrong");
+                Console.WriteLine(exception.Message);
+            }
         }
     }
 }
