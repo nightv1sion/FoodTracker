@@ -1,6 +1,6 @@
 using Grpc.Net.Client;
 
-namespace src.ApiGateways.APIGateway.Services.Contracts;
+namespace src.ApiGateways.APIGateway.Services.Contracts.FoodTracker.API;
 
 public interface IIngredientsGrpcClient
 {

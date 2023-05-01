@@ -8,7 +8,7 @@ public class MappingProfile : Profile
         CreateMap<CreateExerciseDTO, src.WorkoutTracker.API.Entities.Exercise>();
         CreateMap<UpdateExerciseDTO, src.WorkoutTracker.API.Entities.Exercise>();
 
-        CreateMap<src.WorkoutTracker.API.Entities.Exercise, ExerciseProto>();
+        CreateMap<src.WorkoutTracker.API.DataTransferObjects.Exercise.ExerciseDTO, ExerciseProto>();
         CreateMap<CreateExerciseProto, src.WorkoutTracker.API.DataTransferObjects.Exercise.CreateExerciseDTO>();
         CreateMap<UpdateExerciseProto, src.WorkoutTracker.API.DataTransferObjects.Exercise.UpdateExerciseDTO>()
             .ForMember(proto => proto.Id, dto => dto.MapFrom(x => Guid.Parse(x.Id)));

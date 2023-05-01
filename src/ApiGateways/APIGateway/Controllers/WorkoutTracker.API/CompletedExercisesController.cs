@@ -1,6 +1,9 @@
 using System.Text;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using src.ApiGateways.APIGateway.DataTransferObjects.WorkoutTracker.API;
 using src.ApiGateways.APIGateway.Services.Contracts;
+using src.ApiGateways.APIGateway.Services.Contracts.WorkoutTracker.API;
 
 namespace src.ApiGateways.APIGateway.Controllers.WorkoutTracker.API;
 
@@ -8,51 +11,47 @@ namespace src.ApiGateways.APIGateway.Controllers.WorkoutTracker.API;
 [ApiController]
 public class CompletedExercisesController : ControllerBase
 {
-    private readonly string _apiPath;
-    private readonly IHttpRequestReader _requestReader;
-    private readonly IStringContentCreator _contentCreator;
-    private readonly IProxyClient _proxyClient;
+    private readonly ICompletedExercisesGrpcClient _completedExerciseGrpcClient;
 
     public CompletedExercisesController(
-        IConfiguration configuration,
-        IHttpRequestReader requestReader,
-        IStringContentCreator contentCreator,
-        IProxyClient proxyClient)
+        ICompletedExercisesGrpcClient completedExerciseGrpcClient
+        )
     {
-        _apiPath = configuration["WorkoutTrackerAPI:CompletedExercises"];
-        _requestReader = requestReader;
-        _contentCreator = contentCreator;
-        _proxyClient = proxyClient;
+        _completedExerciseGrpcClient = completedExerciseGrpcClient;
     }
 
     [HttpGet]
     public async Task<ActionResult> GetCompletedExercises()
     {
-        return await _proxyClient.GetToAsync(_apiPath);
+        var completedExercises = await _completedExerciseGrpcClient.GetCompletedExercisesAsync();
+        return Ok(completedExercises);
     }
     [HttpGet("{id:guid}")]
     public async Task<ActionResult> GetCompletedExerciseById(Guid id)
     {
-        return await _proxyClient.GetToAsync($"{_apiPath}/{id}");
+        var completedExercise = await _completedExerciseGrpcClient.GetCompletedExerciseAsync(id);
+        return Ok(completedExercise);
     }
-
     [HttpPost]
-    public async Task<ActionResult> CreateCompletedExercise()
+    public async Task<ActionResult> CreateCompletedExercise(
+        CreateCompletedExerciseDTO dto)
     {
-        var body = await _requestReader.ReadRequestBodyAsync(Request);
-        return await _proxyClient.PostToAsync(_apiPath, body);
+        var completedExercise = await _completedExerciseGrpcClient.CreateCompletedExerciseAsync(
+            dto);
+        return Ok(completedExercise);
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateCompletedExercise()
+    public async Task<ActionResult> UpdateCompletedExercise(UpdateCompletedExerciseDTO dto)
     {
-        var body = await _requestReader.ReadRequestBodyAsync(Request);
-        return await _proxyClient.PutToAsync(_apiPath, body);
+        var completedExercise = await _completedExerciseGrpcClient.UpdateCompletedExerciseAsync(dto);
+        return Ok(completedExercise);
     }
 
     [HttpDelete("{id:guid}")]
     public async Task<ActionResult> DeleteCompletedExercise(Guid id)
     {
-        return await _proxyClient.DeleteToAsync($"{_apiPath}/{id}");
+        await _completedExerciseGrpcClient.DeleteCompletedExerciseAsync(id);
+        return Ok();
     }
 }

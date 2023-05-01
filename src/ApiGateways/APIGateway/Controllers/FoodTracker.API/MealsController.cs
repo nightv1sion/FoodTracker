@@ -3,7 +3,7 @@ using System.Text.Json;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc;
 using src.ApiGateways.APIGateway.DataTransferObjects.FoodTracker.API;
-using src.ApiGateways.APIGateway.Services.Contracts;
+using src.ApiGateways.APIGateway.Services.Contracts.FoodTracker.API;
 
 namespace src.ApiGateways.APIGateway.Controllers.FoodTracker.API;
 

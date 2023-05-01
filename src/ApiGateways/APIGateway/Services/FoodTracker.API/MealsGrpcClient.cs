@@ -5,8 +5,9 @@ using Grpc.Net.Client;
 using src.ApiGateways.APIGateway.DataTransferObjects.FoodTracker.API;
 using src.ApiGateways.APIGateway.Interceptors;
 using src.ApiGateways.APIGateway.Services.Contracts;
+using src.ApiGateways.APIGateway.Services.Contracts.FoodTracker.API;
 
-namespace src.ApiGateways.APIGateway.Services;
+namespace src.ApiGateways.APIGateway.Services.FoodTracker.API;
 
 public class MealsGrpcClient : IMealsGrpcClient
 {

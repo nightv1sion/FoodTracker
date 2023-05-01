@@ -26,22 +26,11 @@ public class GrpcGlobalExceptionHandlerInterceptor : Interceptor
         }
         catch (Exception exception)
         {
-            var response = new ResponseViewModel
-            {
-                Code = "99999",
-                Message = "Server error"
-            };
-
-            return MapResponse<TRequest, TResponse>(response);
+            Console.WriteLine(exception.Message);
+            Console.WriteLine(exception.StackTrace);
+            var status = new Status(StatusCode.Internal, "Something went wrong");
+            throw new RpcException(status);
         }
-    }
-
-    private TResponse MapResponse<TRequest, TResponse>(ResponseViewModel response)
-    {
-        var concreteResponse = Activator.CreateInstance<TResponse>();
-        concreteResponse?.GetType().GetProperty(nameof(response.Code))?.SetValue(concreteResponse, response.Code);
-        concreteResponse?.GetType().GetProperty(nameof(response.Message))?.SetValue(concreteResponse, response.Message);
-        return concreteResponse;
     }
 }
 

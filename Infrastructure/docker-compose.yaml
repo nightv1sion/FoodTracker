@@ -44,6 +44,7 @@ services:
     container_name: workouttracker_api
     ports:
       - 5002:80
+      - 9002:81
     env_file:
       - env/workouttracker_api.env
     build:

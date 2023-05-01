@@ -9,7 +9,7 @@ public class MappingProfile : Profile
         CreateMap<CreateTrainingDTO, src.WorkoutTracker.API.Entities.Training>();
         CreateMap<UpdateTrainingDTO, src.WorkoutTracker.API.Entities.Training>();
 
-        CreateMap<src.WorkoutTracker.API.Entities.Training, TrainingProto>();
+        CreateMap<src.WorkoutTracker.API.DataTransferObjects.Training.TrainingDTO, TrainingProto>();
         CreateMap<CreateTrainingProto, src.WorkoutTracker.API.DataTransferObjects.Training.CreateTrainingDTO>();
         CreateMap<UpdateTrainingProto, src.WorkoutTracker.API.DataTransferObjects.Training.UpdateTrainingDTO>()
             .ForMember(proto => proto.Id, dto => dto.MapFrom(x => Guid.Parse(x.Id)));

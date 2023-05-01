@@ -1,3 +1,4 @@
+using System.Text.Json;
 using AutoMapper;
 using Grpc.Core;
 using src.WorkoutTracker.API.DataTransferObjects.CompletedExercise;
@@ -23,8 +24,12 @@ public class CompletedExercisesGrpcService : CompletedExercises.CompletedExercis
     {
         var completedExercises = await _completedExerciseService.GetCompletedExercisesAsync(false);
         var response = new GetCompletedExercisesResponse();
-        var dtos = _mapper.Map<IEnumerable<CompletedExerciseProto>>(completedExercises);
-        response.CompletedExercises.AddRange(dtos);
+        foreach (var completedExercise in completedExercises)
+        {
+            var dto = _mapper.Map<CompletedExerciseProto>(completedExercise);
+            // dto.RepetitionCount.AddRange(completedExercise.RepetitionCountArray);
+            response.CompletedExercises.Add(dto);
+        }
         return response;
     }
     public override async Task<GetCompletedExerciseResponse> GetCompletedExercise(
@@ -35,12 +40,15 @@ public class CompletedExercisesGrpcService : CompletedExercises.CompletedExercis
 
         var response = new GetCompletedExerciseResponse();
         response.CompletedExercise = _mapper.Map<CompletedExerciseProto>(completedExercise);
+        // response.CompletedExercise.RepetitionCount.AddRange(completedExercise.RepetitionCountArray);
         return response;
     }
     public override async Task<CreateCompletedExerciseResponse> CreateCompletedExercise(
         CreateCompletedExerciseRequest request, ServerCallContext context)
     {
+        Console.WriteLine(JsonSerializer.Serialize(request));
         var dto = _mapper.Map<CreateCompletedExerciseDTO>(request.CompletedExercise);
+        Console.WriteLine(JsonSerializer.Serialize(dto));
         var createdCompletedExercise = await _completedExerciseService.CreateCompletedExerciseAsync(dto);
         var response = new CreateCompletedExerciseResponse();
         response.CompletedExercise = _mapper.Map<CompletedExerciseProto>(createdCompletedExercise);

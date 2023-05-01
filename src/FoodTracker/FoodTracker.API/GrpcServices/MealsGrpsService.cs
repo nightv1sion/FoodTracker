@@ -56,7 +56,6 @@ public class MealsGrpcService : Meals.MealsBase
     public override async Task<CreateMealResponse> CreateMeal(CreateMealRequest request,
         ServerCallContext context)
     {
-        Console.WriteLine(JsonSerializer.Serialize(request));
         var createMealDto = _mapper.Map<CreateMealDTO>(request.Meal);
         var meal = await _mediator.Send(new CreateMealCommand(createMealDto));
         var mealProto = _mapper.Map<MealProto>(meal);
